@@ -12,13 +12,7 @@ data <- data[ which(data$Date == "1/2/2007" | data$Date == "2/2/2007"), ]
 data$datetime <- as.POSIXct( paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S" )
 
 # Open device
-if (grepl("mac", .Platform$pkgType)) {
-  quartz()
-} else if (.Platform$OS.type == "unix") {
-  x11()
-} else if (.Platform$OS.type == "windows") {
-  windows()
-}
+png(filename = "plot4.png", bg = "white")
 
 # Draw charts
 par(mfcol = c(2, 2))
@@ -35,5 +29,4 @@ plot( Voltage ~ datetime, data, type="l" )
 plot( Global_reactive_power ~ datetime, data, type="l" )
 
 # Save to png
-dev.copy(png, "plot4.png")
 dev.off()

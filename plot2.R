@@ -12,17 +12,10 @@ data <- data[ which(data$Date == "1/2/2007" | data$Date == "2/2/2007"), ]
 data$datetime <- as.POSIXct( paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S" )
 
 # Open device
-if (grepl("mac", .Platform$pkgType)) {
-  quartz()
-} else if (.Platform$OS.type == "unix") {
-  x11()
-} else if (.Platform$OS.type == "windows") {
-  windows()
-}
+png(filename = "plot2.png", bg = "white")
 
 # Draw chart
 plot( Global_active_power ~ datetime, data, type="l", ylab = "Global Active Power (kilowatts)", xlab = "" )
 
 # Save to png
-dev.copy(png, "plot2.png")
 dev.off()

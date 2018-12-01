@@ -12,13 +12,7 @@ data <- data[ which(data$Date == "1/2/2007" | data$Date == "2/2/2007"), ]
 data$datetime <- as.POSIXct( paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S" )
 
 # Open device
-if (grepl("mac", .Platform$pkgType)) {
-  quartz()
-} else if (.Platform$OS.type == "unix") {
-  x11()
-} else if (.Platform$OS.type == "windows") {
-  windows()
-}
+png(filename = "plot3.png", bg = "white")
 
 # Draw chart
 plot(Sub_metering_1 ~ datetime, data, type="l", ylab = "Energy sub metering", xlab = "")
@@ -27,5 +21,4 @@ lines(data$datetime, data$Sub_metering_3, col="blue")
 legend( 'topright', legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col = c("black", "red", "blue"), lty=1 )
 
 # Save to png
-dev.copy(png, "plot3.png")
 dev.off()
